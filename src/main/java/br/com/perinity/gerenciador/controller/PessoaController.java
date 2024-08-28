@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -46,19 +47,25 @@ public class PessoaController {
     }
 
     // Buscar pessoas por nome e período, retorna média de horas gastas por tarefa
-    @GetMapping("/gastos")
-    public ResponseEntity<List<Object[]>> buscarMediaHorasPorPessoa(
+    @GetMapping("/indice")
+    public ResponseEntity<List<Map<String, Object>>> buscarMediaHorasPorPessoa(
             @RequestParam String nome,
             @RequestParam LocalDate inicio,
             @RequestParam LocalDate fim) {
-        List<Object[]> resultado = pessoaService.buscarMediaHorasPorPessoa(nome, inicio, fim);
+        List<Map<String, Object>> resultado = pessoaService.buscarMediaHorasPorPessoa(nome, inicio, fim);
         return ResponseEntity.ok(resultado);
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<List<Pessoa>> listarPessoas() {
-        List<Pessoa> pessoas = pessoaService.listarTodasPessoas();
+    public ResponseEntity<List<Map<String, Object>>> listarTodasPessoas() {
+        List<Map<String, Object>> pessoas = pessoaService.listarTodasPessoas();
         return ResponseEntity.ok(pessoas);
     }
+
+//    @GetMapping("/departamentos")
+//    public ResponseEntity<List<Map<String, Object>>> listarDepartamentosComQuantidade() {
+//        List<Map<String, Object>> resultado = pessoaService.listarDepartamentosComQuantidade();
+//        return ResponseEntity.ok(resultado);
+//    }
 
 }
